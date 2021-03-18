@@ -2,12 +2,12 @@
 pip install rubik-solver
 ```
 
-**Face 1** :- Yellow
-**Face 2** :- Blue
-**Face 3** :- Red
-**Face 4** :- Green
-**Face 5** :- Orange
-**Face 6** :- White
+**Face 1** :- Yellow<br>
+**Face 2** :- Blue<br>
+**Face 3** :- Red<br>
+**Face 4** :- Green<br>
+**Face 5** :- Orange<br>
+**Face 6** :- White<br>
 
 ```python
 >>> cube = 'wowgybwyogygybyoggrowbrgywrborwggybrbwororbwborgowryby'
