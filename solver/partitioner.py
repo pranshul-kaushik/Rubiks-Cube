@@ -26,5 +26,5 @@ def divide_face(arr):
     
     for div_name, div_arr in div.items():
         data = im.fromarray(div_arr) 
-        data.save(os.path.dirname(__file__) + f'/division/{div_name}.jpeg') 
+        data.save(f'division/{div_name}.jpeg') 
     return div

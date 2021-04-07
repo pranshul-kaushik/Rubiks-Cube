@@ -4,7 +4,7 @@ from colormath.color_objects import sRGBColor, LabColor
 from colormath.color_conversions import convert_color
 from colormath.color_diff import delta_e_cie2000
 from scipy import stats
-import colors
+import pickle
 import random
 import os
 
@@ -17,20 +17,32 @@ def ColorDistance(rgb1,rgb2):
     delta_e = delta_e_cie2000(color1_lab, color2_lab)
     return delta_e
 
-def collect_samples(arr, _):
-    yellow = colors.yellow
-    green = colors.green
-    orange = colors.orange
-    red = colors.red
-    white = colors.white
-    blue = colors.blue
+class color:
+    y = [161, 117, 3]
+    g = [5, 68, 6]
+    o = [178, 48, 5]
+    r = [164, 8, 21]
+    w = [255, 255, 255]
+    b = [5, 35, 126]
 
-    """orange = [255,69,0]
-    yellow = [255,255,0]
-    white = [255,255,255]
-    red = [139,0,0]
-    blue = [0,0,139]
-    green = [0,128,0] """
+
+def collect_samples(arr, _):
+    try:
+        with open('COLORS.pkl', 'rb') as f:
+            COLORS = pickle.load(f)
+        print("\nCalling \n")
+    except:
+        print("\nCreating \n")
+        with open('COLORS.pkl', 'wb') as f:
+            COLORS = color()
+            pickle.dump(COLORS, f, pickle.HIGHEST_PROTOCOL)
+    
+    yellow = COLORS.y
+    green = COLORS.g
+    orange = COLORS.o
+    red = COLORS.r
+    white = COLORS.w
+    blue = COLORS.b
 
     orange_dist = []
     yellow_dist = []
