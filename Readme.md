@@ -4,7 +4,7 @@
 ```
 pip install -r requirements.txt 
 ```
-
+- Step 3:- **Good To Go**
 
 
 [Notation of Rotation Notes](https://rubiks.fandom.com/wiki/Notation)
