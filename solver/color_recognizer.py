@@ -30,7 +30,9 @@ def collect_samples(arr, _):
     try:
         with open('COLORS.pkl', 'rb') as f:
             COLORS = pickle.load(f)
+        print("\nCalling \n")
     except:
+        print("\nCreating \n")
         with open('COLORS.pkl', 'wb') as f:
             COLORS = color()
             pickle.dump(COLORS, f, pickle.HIGHEST_PROTOCOL)
