@@ -26,7 +26,7 @@ SECRET_KEY = '6(#db3*$zbl0(=_*4f6tnsyrm=4p3!4aehc@t^dc*2n+9_^qr2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['therubiksolver.herokuapp.com']
 
 
 # Application definition
