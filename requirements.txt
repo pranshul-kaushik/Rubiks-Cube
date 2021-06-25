@@ -4,6 +4,7 @@ colormath==3.0.0
 decorator==4.4.2
 Django==3.1.7
 future==0.18.2
+gunicorn==19.0.0
 kociemba==1.2.1
 networkx==2.5.1
 numpy==1.20.2
