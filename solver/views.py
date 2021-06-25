@@ -97,6 +97,14 @@ def delete_files(folder):
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 @csrf_exempt
+def reset(request):
+    os.remove("color.cube") 
+    os.remove("COLORS.pkl") 
+    delete_files('media')
+    delete_files('division')
+    return JsonResponse({'reset':True})
+
+@csrf_exempt
 def solve(request):
     _ = 9
     f = open('color.cube', 'r')
