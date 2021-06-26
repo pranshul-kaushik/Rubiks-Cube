@@ -31,8 +31,8 @@ def rectifier(pos, label):
     f.close()
     exec(f"print('New value of ', '{label} ' ,COLORS.{label})")
 
-def face_recognize(face):
-    img = Image.open(f'media/{face}.jpeg')
+def face_recognize(path):
+    img = Image.open(path)
     face = ''
     arr = np.array(img)
     div = partitioner.divide_face(arr)
@@ -42,19 +42,21 @@ def face_recognize(face):
     return face
 
 @csrf_exempt
-def InputStream(request, face):
+def InputStream(request):
     data = request.FILES['data']
-    path = default_storage.save(f'media/{face}.jpeg', ContentFile(data.read()))
+    path = default_storage.save(f'media/face.jpeg', ContentFile(data.read()))
     tmp_file = os.path.join(settings.MEDIA_ROOT, path)
-    face_color = face_recognize(face)
+    print(path)
+    face_color = face_recognize(path)
+    delete_files('media')
 
     with open('color.face', 'w') as f:
         f.write(face_color)
 
-    return JsonResponse({'data':face_color, 'face': face})
+    return JsonResponse({'data':face_color})
 
 @csrf_exempt
-def acknowledge(request, face):
+def acknowledge(request):
     pos = {
         0 : "top_left",
         1 : "top",
@@ -78,12 +80,9 @@ def acknowledge(request, face):
 
     with open('color.face', 'w') as f:
         f.write(data)
-
-    with open('color.cube', 'a') as f:
-        f.write(data)
     
     os.remove("color.face") 
-    return JsonResponse({'data':data, 'face': face})
+    return JsonResponse({'data':data})
 
 def delete_files(folder):
     for filename in os.listdir(folder):
@@ -98,7 +97,6 @@ def delete_files(folder):
 
 @csrf_exempt
 def reset(request):
-    os.remove("color.cube") 
     os.remove("COLORS.pkl") 
     delete_files('media')
     delete_files('division')
@@ -107,21 +105,25 @@ def reset(request):
 @csrf_exempt
 def solve(request):
     _ = 9
-    f = open('color.cube', 'r')
-    cube = f.read()
-    f.close()
-
-    MAPPER_FACE_CENTER = {
-        side: side_id for side, side_id in zip(['U', 'R', 'F', 'D', 'L', 'B'], [i * _ + 4 for i in range(6)])
-    }
-
-    for side, side_id in MAPPER_FACE_CENTER.items():
-        cube = cube.replace(cube[side_id], side)
+    cube = json.loads(request.body).get("cube")
+    try:
+        MAPPER_FACE_CENTER = {
+            side: side_id for side, side_id in zip(['U', 'R', 'F', 'D', 'L', 'B'], [i * _ + 4 for i in range(6)])
+        }
     
-    print(cube)
-    rotation = kociemba.solve(cube)
-    os.remove("color.cube") 
-    os.remove("COLORS.pkl") 
-    delete_files('media')
-    delete_files('division')
-    return JsonResponse({'rotation':rotation})
+        for side, side_id in MAPPER_FACE_CENTER.items():
+            cube = cube.replace(cube[side_id], side)
+        
+        print(cube)
+        rotation = kociemba.solve(cube)
+        
+        try:
+            os.remove("COLORS.pkl") 
+        except:
+            pass
+        
+        delete_files('media')
+        delete_files('division')
+        return JsonResponse({'rotation':rotation})
+    except Exception as e:
+        return JsonResponse({'error':str(e)})
