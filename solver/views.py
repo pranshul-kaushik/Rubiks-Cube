@@ -46,9 +46,9 @@ def face_recognize(path):
 def InputStream(request):
     data = request.POST.get('data')
     path = "media/face.jpeg"
-    print(data)
+    print(data[5:])
     print(type(data))
-    urllib.request.urlretrieve(str(data), path)
+    urllib.request.urlretrieve(str(data)[5:], path)
     #path = default_storage.save(f'media/face.jpeg', ContentFile(Image.open(data).read()))
     #tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     print(path)
