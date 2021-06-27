@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.conf import settings
 from PIL import Image
+import urllib.request
 import numpy as np
 import kociemba
 import pickle
@@ -43,10 +44,11 @@ def face_recognize(path):
 
 @csrf_exempt
 def InputStream(request):
-    print(request.body)
     data = request.POST.get('data')[0]
-    path = default_storage.save(f'media/face.jpeg', ContentFile(Image.open(data).read()))
-    tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+    path = "media/face.jpeg"
+    urllib.request.urlretrieve(data, path)
+    #path = default_storage.save(f'media/face.jpeg', ContentFile(Image.open(data).read()))
+    #tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     print(path)
     face_color = face_recognize(path)
     delete_files('media')
