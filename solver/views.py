@@ -45,7 +45,7 @@ def face_recognize(path):
 def InputStream(request):
     print(request.body)
     data = request.POST.get('data')[0]
-    path = default_storage.save(f'media/face.jpeg', ContentFile(data.read()))
+    path = default_storage.save(f'media/face.jpeg', ContentFile(Image.open(data).read()))
     tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     print(path)
     face_color = face_recognize(path)
