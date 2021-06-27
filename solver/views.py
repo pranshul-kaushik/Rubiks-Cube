@@ -16,7 +16,7 @@ import io
 import os
 
 def rectifier(pos, label):
-    img = Image.open(f'division/{pos}.jpeg')
+    img = Image.open(f'division/{pos}.png')
     arr = np.array(img)
     print("Updating the COLORS pkl")
     f = open('COLORS.pkl', 'rb')
@@ -44,14 +44,10 @@ def face_recognize(path):
 
 @csrf_exempt
 def InputStream(request):
-    print(request.FILES)
     data = request.POST.get('data')
-    path = "media/face.jpeg"
-    print(data)
+    path = "media/face.png"
     print(type(data))
-    urllib.request.urlretrieve(str(data), path)
-    #path = default_storage.save(f'media/face.jpeg', ContentFile(Image.open(data).read()))
-    #tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+    urllib.request.urlretrieve(data, path)
     print(path)
     face_color = face_recognize(path)
     delete_files('media')
