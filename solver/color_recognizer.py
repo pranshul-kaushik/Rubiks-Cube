@@ -72,7 +72,7 @@ def collect_samples(arr, _):
             }
 
 def color_detector(arr):
-    number_sample = 300
+    number_sample = 100
     dist = collect_samples(arr, number_sample)
     flag = 0
     while flag != 6:
