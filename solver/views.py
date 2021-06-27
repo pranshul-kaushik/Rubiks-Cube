@@ -44,11 +44,12 @@ def face_recognize(path):
 
 @csrf_exempt
 def InputStream(request):
+    print(request.FILES)
     data = request.POST.get('data')
     path = "media/face.jpeg"
-    print(data[5:])
+    print(data)
     print(type(data))
-    urllib.request.urlretrieve(str(data)[5:], path)
+    urllib.request.urlretrieve(str(data), path)
     #path = default_storage.save(f'media/face.jpeg', ContentFile(Image.open(data).read()))
     #tmp_file = os.path.join(settings.MEDIA_ROOT, path)
     print(path)
