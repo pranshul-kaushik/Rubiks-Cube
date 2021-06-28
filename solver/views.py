@@ -119,11 +119,6 @@ def solve(request):
         print(cube)
         rotation = kociemba.solve(cube)
         
-        try:
-            os.remove("COLORS.pkl") 
-        except:
-            pass
-        
         delete_files('media')
         delete_files('division')
         return JsonResponse({'rotation':rotation})
