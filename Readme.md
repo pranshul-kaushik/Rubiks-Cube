@@ -25,13 +25,3 @@ cd Rubiks-Cube
 python solver.py
 ```
 3. Follow the instructions on the interface to input the cube's state and get the solution.
-
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or new features.
-
-## License
-This project is licensed under the MIT License.
-
----
-
-You can adjust and expand this README as needed to include more specific details about your project.
